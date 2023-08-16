@@ -17,32 +17,32 @@ public class ProductController {
     private ProductService productService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/save")
-    public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO) {
+    @PostMapping
+    public ResponseEntity<String> create(@RequestBody ProductDTO productDTO) {
         productService.createProduct(productDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully.");
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> getProduct(@PathVariable Long id) {
+    public ResponseEntity<ProductDTO> get(@PathVariable Long id) {
         ProductDTO productDTO = productService.getProduct(id);
         return ResponseEntity.ok(productDTO);
     }
 
-    @GetMapping("/getAll")
-    public List<ProductDTO> getAllProducts(){
+    @GetMapping
+    public List<ProductDTO> getAll(){
         return productService.getAllProducts();
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+    @PutMapping("{id}")
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
         productDTO.setId(id);
         productService.updateProduct(id, productDTO);
         return ResponseEntity.ok("Product updated successfully.");
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.ok("Product deleted successfully.");
     }
